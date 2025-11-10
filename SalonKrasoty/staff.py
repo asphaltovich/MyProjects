@@ -1,70 +1,59 @@
 # Создание класса Персонал 
+# staff.py
 class Staff:
-    def __init__(self, name, qualification, experience, friendliness, professionalism, appearance):
-        self.__name = name
-        self.__qualification = qualification
-        self.__experience = experience
-        self.__friendliness = friendliness
-        self.__professionalism = professionalism
-        self.__appearance = appearance
+    def __init__(self, qualification, experience, friendliness, professionalism, appearance):
+        self._qualification = qualification
+        self._experience = experience
+        self._friendliness = friendliness
+        self._professionalism = professionalism
+        self._appearance = appearance
 
     # Геттеры и сеттеры
-    def get_name(self):
-        return self.__name
-
-    def set_name(self, name):
-        self.__name = name
-
     def get_qualification(self):
-        return self.__qualification
+        return self._qualification
 
     def set_qualification(self, qualification):
-        self.__qualification = qualification
+        self._qualification = qualification
 
     def get_experience(self):
-        return self.__experience
+        return self._experience
 
     def set_experience(self, experience):
-        self.__experience = experience
+        self._experience = experience
 
     def get_friendliness(self):
-        return self.__friendliness
+        return self._friendliness
 
     def set_friendliness(self, friendliness):
-        self.__friendliness = friendliness
+        self._friendliness = friendliness
 
     def get_professionalism(self):
-        return self.__professionalism
+        return self._professionalism
 
     def set_professionalism(self, professionalism):
-        self.__professionalism = professionalism
+        self._professionalism = professionalism
 
     def get_appearance(self):
-        return self.__appearance
+        return self._appearance
 
     def set_appearance(self, appearance):
-        self.__appearance = appearance
+        self._appearance = appearance
 
     # Методы
-
-    # Простой: вывод информации о сотруднике, который отвечает на вопросы
+    # Простой
     def answer_questions(self):
-        print(f"{self.__name} отвечает на вопросы.")
+        print(f"{self._qualification} отвечает на вопросы.")
 
-    # Простой: вывод информации о персонале
-    def show_info(self):
-        print(f"Специалист {self.__name}, квалификация: {self.__qualification}")
-
-    # С входным параметром: обновление опыта
+    # Входными
     def update_experience(self, new_experience):
-        self.__experience = new_experience
-        print(f"Опыт обновлен до {new_experience} лет.")
+        self._experience = new_experience
+        print(f"Опыт обновлен: {new_experience} лет.")
 
-    # Входные и выходные: возвращает уровень профессионализма
+    # Входные и выходные
     def get_professional_level(self):
-        if self.__professionalism >= 8:
+        if self._professionalism >= 8:
             return "Высокий уровень"
-        elif self.__professionalism >= 5:
+        elif self._professionalism >= 5:
             return "Средний уровень"
         else:
             return "Начинающий"
