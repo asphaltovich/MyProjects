@@ -1,5 +1,4 @@
 # Создание класса Персонал 
-# staff.py
 class Staff:
     def __init__(self, qualification, experience, friendliness, professionalism, appearance):
         self._qualification = qualification
