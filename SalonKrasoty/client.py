@@ -1,60 +1,58 @@
 # Создание класса клиент
 class Client:
-    
-    # Инициализация полей
-    def __init__(self, name, age, gender, target_auditory, behaivour):
-        self.__name = name
-        self.__age = age
-        self.__gender = gender
-        self.__target_auditory = target_auditory
-        self.__behaivour = behaivour
-   
-#    Геттеры и сеттеры полей 
-    def get_name(self):
-        return self.__name
-    def set_name(self, name):
-        self.__name = name
+    def __init__(self, target_audience, age, gender, name, behavior):
+        self._target_audience = target_audience
+        self._age = age
+        self._gender = gender
+        self._name = name
+        self._behavior = behavior
 
-    def get_age(self):
-        return self.__age
-
-    def set_age(self, age):
-        self.__age = age
-
-    def get_gender(self):
-        return self.__gender
-
-    def set_gender(self, gender):
-        self.__gender = gender
-
+    # Геттеры и сеттеры
     def get_target_audience(self):
-        return self.__target_audience
+        return self._target_audience
 
     def set_target_audience(self, target):
-        self.__target_audience = target
+        self._target_audience = target
+
+    def get_age(self):
+        return self._age
+
+    def set_age(self, age):
+        self._age = age
+
+    def get_gender(self):
+        return self._gender
+
+    def set_gender(self, gender):
+        self._gender = gender
+
+    def get_name(self):
+        return self._name
+
+    def set_name(self, name):
+        self._name = name
 
     def get_behavior(self):
-        return self.__behavior
+        return self._behavior
 
     def set_behavior(self, behavior):
-        self.__behavior = behavior
-    
-  # Методы
-    
-    # Простой: ничего не принимает, выводит информацию
-    def show_info(self):
-        print(f"Клиент: {self.__name}, возраст: {self.__age}, пол: {self.__gender}")
+        self._behavior = behavior
 
-    # С входным параметром: обновляет поведение клиента
+    # Методы
+    # Простой
+    def show_basic_info(self):
+        print(f"Клиент: {self._name}, возраст: {self._age}")
+
+    # С входными
     def update_behavior(self, new_behavior):
-        self.__behavior = new_behavior
-        print(f"Поведение клиента обновлено на: {new_behavior}")
+        self._behavior = new_behavior
+        print(f"Поведение обновлено: {new_behavior}")
 
-    # С входными и выходными: возвращает возраст в годах + сообщение
+    # Входные и выходные
     def get_age_category(self):
-        if self.__age < 30:
+        if self._age < 30:
             return "Молодой клиент"
-        elif self.__age < 50:
+        elif self._age < 50:
             return "Клиент среднего возраста"
         else:
             return "Пожилой клиент"
