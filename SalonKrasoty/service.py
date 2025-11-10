@@ -1,54 +1,54 @@
 # Создание класса Сервис
 class Service:
-    def __init__(self, description, price, duration, features, promotions=None):
-        self.__description = description
-        self.__price = price
-        self.__duration = duration
-        self.__features = features
-        self.__promotions = promotions if promotions else []
+    def __init__(self, description, price, duration, features, promotion=None):
+        self._description = description
+        self._price = price
+        self._duration = duration
+        self._features = features
+        self._promotion = promotion
 
     # Геттеры и сеттеры
     def get_description(self):
-        return self.__description
+        return self._description
 
     def set_description(self, description):
-        self.__description = description
+        self._description = description
 
     def get_price(self):
-        return self.__price
+        return self._price
 
     def set_price(self, price):
-        self.__price = price
+        self._price = price
 
     def get_duration(self):
-        return self.__duration
+        return self._duration
 
     def set_duration(self, duration):
-        self.__duration = duration
+        self._duration = duration
 
     def get_features(self):
-        return self.__features
+        return self._features
 
     def set_features(self, features):
-        self.__features = features
+        self._features = features
 
-    def get_promotions(self):
-        return self.__promotions
+    def get_promotion(self):
+        return self._promotion
 
-    def set_promotions(self, promotions):
-        self.__promotions = promotions
+    def set_promotion(self, promotion):
+        self._promotion = promotion
 
-    # Методы 
-    # Простой: вывод информации о услуге
-    def show_info(self):
-        print(f"Услуга: {self.__description}, цена: {self.__price} руб., длительность: {self.__duration} мин.")
+    # Методы
+    # Простой
+    def show_service_info(self):
+        print(f"Услуга: {self._description}, цена: {self._price} руб.")
 
-    # С входным параметром: добавление акции
-    def add_promotion(self, promo):
-        self.__promotions.append(promo)
-        print(f"Добавлена акция: {promo}")
+    # С входным
+    def apply_promotion(self, promo):
+        self._promotion = promo
+        print(f"Акция применена: {promo}")
 
-    # Входные и выходные: возвращает цену с учетом скидки (если есть акция)
-    def get_price_with_discount(self, discount_percentage):
-        discount_amount = self.__price * discount_percentage / 100
-        return self.__price - discount_amount
+    # Входные и выходные
+    def get_discounted_price(self, discount_percentage):
+        discounted = self._price * (1 - discount_percentage / 100)
+        return discounted
