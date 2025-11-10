@@ -1,4 +1,5 @@
-lass Service:
+# Создание класса Сервис
+class Service:
     def __init__(self, description, price, duration, features, promotions=None):
         self.__description = description
         self.__price = price
