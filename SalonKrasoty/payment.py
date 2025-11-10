@@ -1,54 +1,46 @@
 # Создание класса Оплата
 class Payment:
-    def __init__(self, amount, prepayment=False, payment_method=None, installments=False, promotion_applied=False):
-        self.__amount = amount
-        self.__prepayment = prepayment
-        self.__payment_method = payment_method
-        self.__installments = installments
-        self.__promotion_applied = promotion_applied
+    def __init__(self, prepayment, payment_method, installment, amount):
+        self._prepayment = prepayment
+        self._payment_method = payment_method
+        self._installment = installment
+        self._amount = amount
 
     # Геттеры и сеттеры
-    def get_amount(self):
-        return self.__amount
-
-    def set_amount(self, amount):
-        self.__amount = amount
-
     def get_prepayment(self):
-        return self.__prepayment
+        return self._prepayment
 
     def set_prepayment(self, prepayment):
-        self.__prepayment = prepayment
+        self._prepayment = prepayment
 
     def get_payment_method(self):
-        return self.__payment_method
+        return self._payment_method
 
     def set_payment_method(self, method):
-        self.__payment_method = method
+        self._payment_method = method
 
-    def get_installments(self):
-        return self.__installments
+    def get_installment(self):
+        return self._installment
 
-    def set_installments(self, installments):
-        self.__installments = installments
+    def set_installment(self, installment):
+        self._installment = installment
 
-    def get_promotion_applied(self):
-        return self.__promotion_applied
+    def get_amount(self):
+        return self._amount
 
-    def set_promotion_applied(self, promotion):
-        self.__promotion_applied = promotion
+    def set_amount(self, amount):
+        self._amount = amount
 
     # Методы
-
-    # Простой: вывод информации о платеже
+    # Простой
     def show_payment_info(self):
-        print(f"Платеж: {self.__amount} руб., способ: {self.__payment_method}")
+        print(f"Оплата: {self._amount} руб. через {self._payment_method}")
 
-    # С входным параметром: обновление суммы
+    # Входной
     def update_amount(self, new_amount):
-        self.__amount = new_amount
-        print(f"Сумма платежа обновлена: {new_amount} руб.")
+        self._amount = new_amount
+        print(f"Сумма обновлена: {new_amount}")
 
-    # Входные и выходные: возвращает, оплатил ли клиент с акцией
-    def is_promotion_applied(self):
-        return self.__promotion_applied
+    # Входные и выходные
+    def is_full_payment(self):
+        return not self._prepayment and not self._installment
