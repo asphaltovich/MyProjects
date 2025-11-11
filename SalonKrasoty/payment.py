@@ -1,4 +1,5 @@
 # Создание класса Оплата
+# Создание класса Оплата
 class Payment:
     def __init__(self, prepayment, payment_method, installment, amount):
         self._prepayment = prepayment
@@ -34,12 +35,13 @@ class Payment:
     # Методы
     # Простой
     def show_payment_info(self):
-        print(f"Оплата: {self._amount} руб. через {self._payment_method}")
+        print(f"Оплата: {self._amount} руб, способ: {self._payment_method}")
 
-    # Входной
+   # Входной
     def update_amount(self, new_amount):
         self._amount = new_amount
         print(f"Сумма обновлена: {new_amount}")
+
 
     # Входные и выходные
     def is_full_payment(self):
