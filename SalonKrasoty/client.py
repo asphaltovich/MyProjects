@@ -39,15 +39,15 @@ class Client:
         self._behavior = behavior
 
     # Методы
-    # Простой
+     # Простой
     def show_basic_info(self):
-        print(f"Клиент: {self._name}, возраст: {self._age}")
-
+        print(f"Клиент: {self._name}, возраст: {self._age}, пол: {self._gender}")
+   
     # С входными
     def update_behavior(self, new_behavior):
         self._behavior = new_behavior
-        print(f"Поведение обновлено: {new_behavior}")
-
+        print(f"Поведение клиента обновлено: {new_behavior}")
+    
     # Входные и выходные
     def get_age_category(self):
         if self._age < 30:
