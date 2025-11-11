@@ -41,13 +41,12 @@ class Service:
     # Методы
     # Простой
     def show_service_info(self):
-        print(f"Услуга: {self._description}, цена: {self._price} руб.")
+        print(f"Услуга: {self._description}, цена: {self._price} руб, длительность: {self._duration}")
 
     # С входным
     def apply_promotion(self, promo):
         self._promotion = promo
         print(f"Акция применена: {promo}")
-
     # Входные и выходные
     def get_discounted_price(self, discount_percentage):
         discounted = self._price * (1 - discount_percentage / 100)
