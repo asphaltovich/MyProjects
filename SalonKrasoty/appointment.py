@@ -11,17 +11,19 @@ class Appointment:
 
     def set_date_time(self, date_time):
         self._date_time = date_time
-
+    
     # Методы
     # Простой
     def show_info(self):
         print(f"Запись на {self._date_time}")
-
-    # Входной
+   # Входной
     def change_date_time(self, new_date_time):
         self._date_time = new_date_time
         print(f"Дата и время изменены на {new_date_time}")
 
-    # Входные и выходные
+    def cancel_appointment(self):
+        print(f"Запись на {self._date_time} отменена.")
+        self._date_time = None
+  # Входные и выходные
     def is_past(self):
         return self._date_time < datetime.now()
