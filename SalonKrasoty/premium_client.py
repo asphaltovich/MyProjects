@@ -1,4 +1,3 @@
-
 from client import Client
 
 # Создание класса ПремиумКлиент
@@ -13,7 +12,6 @@ class PremiumClient(Client):
     def set_vip_level(self, vip_level):
         self._vip_level = vip_level
 
-    # Переопределение метода
     def show_basic_info(self):
         super().show_basic_info()
         print(f"VIP-статус: {self._vip_level}")
