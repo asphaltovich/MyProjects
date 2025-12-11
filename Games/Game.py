@@ -82,11 +82,7 @@ class Location:
 
 # Обработка команд
 def handle_go(current_location, input_command):
-    parts = input_command.split(" ", 1)
-    if len(parts) < 2:
-        print("Укажите направление для перемещения.")
-        return current_location
-    direction = parts[1]
+    direction = input_command.strip().lower()
     if direction in current_location.exits:
         return current_location.exits[direction]
     else:
@@ -94,30 +90,24 @@ def handle_go(current_location, input_command):
         return current_location
 
 def handle_take(player, current_location, input_command):
-    parts = input_command.split(" ", 1)
-    if len(parts) < 2:
-        print("Укажите предмет для взятия.")
-        return
-    item_name = parts[1]
-    if item_name in current_location.items:
-        player.add_item(item_name)
-        current_location.items.remove(item_name)
-        print(f"Вы взяли {item_name}.")
-    else:
-        print(f"Здесь нет предмета {item_name}.")
+    item_name = input_command.strip().lower()
+    for item in current_location.items:
+        if item.lower() == item_name:
+            player.add_item(item)
+            current_location.items.remove(item)
+            print(f"Вы взяли {item}.")
+            return
+    print(f"Здесь нет предмета {item_name}.")
 
 def handle_drop(player, current_location, input_command):
-    parts = input_command.split(" ", 1)
-    if len(parts) < 2:
-        print("Укажите предмет для сброса.")
-        return
-    item_name = parts[1]
-    if player.has_item(item_name):
-        player.remove_item(item_name)
-        current_location.items.append(item_name)
-        print(f"Вы положили {item_name} в локацию.")
-    else:
-        print(f"У вас нет предмета {item_name}.")
+    item_name = input_command.strip().lower()
+    for item in player.inventory:
+        if item.lower() == item_name:
+            player.remove_item(item)
+            current_location.items.append(item)
+            print(f"Вы положили {item} в локацию.")
+            return
+    print(f"У вас нет предмета {item_name}.")
 
 def handle_fight(player, current_location):
     if not current_location.enemies:
@@ -145,6 +135,15 @@ def handle_info(player, current_location):
     print(f"Здоровье: {player.health}")
     player.show_inventory()
     current_location.describe()
+
+# Новая функция для перемещения в любую локацию по названию
+def handle_move_to_location(current_location, all_locations, input_command):
+    location_name = input_command.strip().lower()
+    for loc in all_locations:
+        if loc.name.lower() == location_name:
+            return loc
+    print(f"Локация '{input_command}' не найдена.")
+    return current_location
 
 # Создаем локации и связываем их по названиям
 start = Location(
@@ -176,6 +175,9 @@ forest.exits = {"назад": start, "пещера": cave}
 cave.exits = {"назад": forest, "комната сокровищ": treasure_room}
 treasure_room.exits = {"назад": cave}
 
+# Все локации для поиска
+all_locations = [start, forest, cave, treasure_room]
+
 # Игра
 player_name = input("Введите ваше имя: ")
 player = Player(player_name)
@@ -185,26 +187,35 @@ won = False
 
 while not game_over:
     command = input("Введите команду (можно несколько сразу): ").lower()
-
-    # Разделяем команду на части по пробелам
     parts = command.split()
+
+    # Обработка команды "перейти [название]"
+    if parts and parts[0] == "перейти" and len(parts) > 1:
+        target_name = ' '.join(parts[1:])
+        current_location = handle_move_to_location(current_location, all_locations, target_name)
+        continue
+
     i = 0
+    comando_обнаружено = False
     while i < len(parts):
         word = parts[i]
-        # Обработка команды "иди"
+        # Обработка "иди"
         if word == "иди" and i + 1 < len(parts):
             direction = ' '.join(parts[i + 1:])
-            current_location = handle_go(current_location, "иди " + direction)
-            break  # после перемещения дальше не идем
+            current_location = handle_go(current_location, direction)
+            comando_обнаружено = True
+            break
         # Обработка "бери"
         elif word == "бери" and i + 1 < len(parts):
             item = ' '.join(parts[i + 1:])
-            handle_take(player, current_location, "бери " + item)
+            handle_take(player, current_location, item)
+            comando_обнаружено = True
             break
         # Обработка "клади"
         elif word == "клади" and i + 1 < len(parts):
             item = ' '.join(parts[i + 1:])
-            handle_drop(player, current_location, "клади " + item)
+            handle_drop(player, current_location, item)
+            comando_обнаружено = True
             break
         # Обработка "биться"
         elif word == "биться":
@@ -212,19 +223,19 @@ while not game_over:
             if not success:
                 print("Игра окончена.")
                 game_over = True
+            comando_обнаружено = True
             break
         # Обработка "инфо"
         elif word == "инфо":
             handle_info(player, current_location)
+            comando_обнаружено = True
             break
         # Обработка "выход"
         elif word == "выход":
             print("Вы вышли из игры.")
             game_over = True
+            comando_обнаружено = True
             break
-        else:
-            # Если команда не распознана, пропускаем
-            pass
         i += 1
 
     # Проверка победы
